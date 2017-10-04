@@ -31,11 +31,35 @@ to render and recognize while parsing the html
 
 ```js
 {
-    directory: 'path/to/directory/with/tag/files/**/*.tag'
+  directory: 'path/to/directory/with/tag/files/**/*.tag'
 }
 ```
 
 **MUST** end with *.tag (as the current riot engine only supports *.tag file rendering on the server)
+
+### sanitize (optional)
+
+If the html is not valid or has unbalanced tags, simple-dom (a library used by Riot) is going to choke. Set this value to 'true' to attempt to get rid of any issues related to unbalanced html elements.
+
+```js
+{
+  sanitize: true
+}
+```
+
+### settings (optional)
+
+If your html for example has a lot of brackets in it {{ and }}, then riot will 
+try to interpret these as expressions. You may therefore want to customize the
+[riot settings](http://riotjs.com/api/misc/).
+
+```js
+{
+  settings: {
+    brackets: '${ }'
+  }
+}
+```
 
 ## Full example
 

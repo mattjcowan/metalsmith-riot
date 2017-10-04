@@ -1,3 +1,4 @@
+/* eslint no-template-curly-in-string: "off" */
 var Metalsmith = require('metalsmith')
 var dir = require('node-dir')
 var fs = require('fs-extra')
@@ -9,7 +10,11 @@ describe('metalsmith-riot', function () {
   it('should convert riot tags', function (done) {
     Metalsmith('spec/fixture')
       .use(renderRiotTags({
-        directory: 'spec/tags/**/*.tag'
+        directory: 'spec/tags/**/*.tag',
+        sanitize: true, // set this to false and you get an 'unbalanced tag' error from simple-dom.js
+        settings: {
+          brackets: '${ }' // if you remove this setting, the 'html-with-brackets.html' file will not be able to be rendered and will break the metalsmith flow
+        }
       }))
       .build(function (err) {
         if (err) return done(err)

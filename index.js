@@ -2,6 +2,7 @@ var glob = require('glob')
 var fs = require('fs')
 var path = require('path')
 var debug = require('debug')('metalsmith:riot')
+var sanitizeHtml = require('sanitize-html')
 
 /**
  * Expose the `plugin`.
@@ -21,6 +22,8 @@ module.exports = plugin
 function plugin (opts) {
   opts = opts || {}
   var dir = opts.directory
+  var settings = opts.settings
+  var sanitize = opts.sanitize
 
   /*
     * Fix for resolving local path
@@ -64,6 +67,8 @@ function plugin (opts) {
 
     // require in all the tags
     var riot = require('riot')
+    if (settings) Object.assign(riot.settings, settings)
+
     var tags = []
     dir.forEach(function (d) {
       var tagFiles = glob.sync(d)
@@ -79,10 +84,25 @@ function plugin (opts) {
       var data = files[file]
       var contents = data.contents.toString()
 
+      // DOCTYPEs are imbalanced tags for riot, so we need to strip them out and add them back in after parsing
+      var preHtml = ''
+      var htmlIdx = contents.indexOf('<html', 0)
+      if (htmlIdx > 0) {
+        preHtml = contents.substring(0, htmlIdx)
+        contents = contents.substring(htmlIdx)
+      }
+
       var fileTagName = 'file-' + index
+      if (sanitize) {
+        contents = sanitizeHtml(contents, {
+          // allow all tags & attributes
+          allowedTags: false,
+          allowedAttributes: false
+        })
+      }
       var fileTag = riot.tag(fileTagName, contents)
       var fileHtml = riot.render(fileTag)
-      files[file].contents = fileHtml.substring(fileTagName.length + 2, fileHtml.length - (fileTagName.length + 3))
+      files[file].contents = preHtml + fileHtml.substring(fileTagName.length + 2, fileHtml.length - (fileTagName.length + 3))
     })
   }
 }

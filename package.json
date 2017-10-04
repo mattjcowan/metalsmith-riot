@@ -1,10 +1,10 @@
 {
   "name": "metalsmith-riot",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Metalsmith plugin to render riot tags in your html",
   "main": "index.js",
   "scripts": {
-    "test": "DEBUG=metalsmith:* mocha ./spec/index.js",
+    "test": "DEBUG=*,metalsmith:* mocha ./spec/index.js",
     "lint": "eslint --fix ."
   },
   "repository": {
@@ -28,7 +28,8 @@
   "dependencies": {
     "debug": "3.1.0",
     "glob": "7.1.2",
-    "riot": "3.7.3"
+    "riot": "3.7.3",
+    "sanitize-html": "1.14.1"
   },
   "devDependencies": {
     "assert-dir-equal": "1.1.0",

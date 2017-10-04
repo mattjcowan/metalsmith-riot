@@ -1,0 +1,4 @@
+<simple>
+  <yield/>
+</simple>
+  

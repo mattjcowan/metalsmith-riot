@@ -1,5 +1,5 @@
 <test>
-  <span class="{ active: isActive }" data-awe="{fn(isActive)}">{ text }</span>
+  <span class="${ active: isActive }" data-awe="${fn(isActive)}">${ text }</span>
   <yield/>
 
   <style scoped>
