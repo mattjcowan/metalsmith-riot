@@ -2,9 +2,12 @@
   <head></head>
   <body>
     <section>
-      <div data-is="test" active="false"><span class="active" data-awe="AWESOME">this is text</span> WITH SOME CONTENT</div>
+      <div data-is="test" active="false"><span data-awe="NOT AWESOME">this is text</span> WITH SOME CONTENT</div>
       <div data-is="test" active="true"><span class="active" data-awe="AWESOME">this is text</span> </div>
       <test active="true"><span class="active" data-awe="AWESOME">this is text</span> MORE CONTENT</test>
+      <test active="false"><span data-awe="NOT AWESOME">this is text</span>
+        <test active="true"><span class="active" data-awe="AWESOME">this is text</span> MORE CONTENT</test>
+      </test>
     </section>
   </body>
 </html>
