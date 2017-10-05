@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-riot",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A Metalsmith plugin to render riot tags in your html",
   "main": "index.js",
   "scripts": {

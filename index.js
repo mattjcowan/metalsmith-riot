@@ -54,6 +54,8 @@ function plugin (opts) {
   }
 
   return function (files, metalsmith, done) {
+    var metadata = metalsmith.metadata()
+
     debug('Metalsmith riot')
 
     setImmediate(done)
@@ -69,6 +71,9 @@ function plugin (opts) {
     var riot = require('riot')
     if (settings) Object.assign(riot.settings, settings)
 
+    // create a global mixin with the global metadata
+    // riot.mixin({ metadata: metadata })
+
     var tags = []
     dir.forEach(function (d) {
       var tagFiles = glob.sync(d)
@@ -82,6 +87,9 @@ function plugin (opts) {
     Object.keys(files).forEach(function (file, index) {
       if (!isHtml(file)) return
       var data = files[file]
+
+      riot.mixin({ metadata: Object.assign({}, data, metadata) })
+
       var contents = data.contents.toString()
 
       // DOCTYPEs are imbalanced tags for riot, so we need to strip them out and add them back in after parsing

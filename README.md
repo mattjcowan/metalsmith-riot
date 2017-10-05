@@ -19,6 +19,19 @@ Metalsmith(__dirname)
   // ...
 ```
 
+### Metadata
+
+File and global metadata can be accessed using a 'metadata' property inside your Riot tags, for example:
+
+```html
+<my-tag>
+    <span>{ title }</span>
+
+    <script>
+        this.title = this.metadata.title || 'No title available'
+    </script>
+</my-tag>
+```
 
 ## Options
 

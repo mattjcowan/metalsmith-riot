@@ -9,6 +9,9 @@ var renderRiotTags = require('..')
 describe('metalsmith-riot', function () {
   it('should convert riot tags', function (done) {
     Metalsmith('spec/fixture')
+      .metadata({
+        'someKey': 'someValue'
+      })
       .use(renderRiotTags({
         directory: 'spec/tags/**/*.tag',
         sanitize: true, // set this to false and you get an 'unbalanced tag' error from simple-dom.js
